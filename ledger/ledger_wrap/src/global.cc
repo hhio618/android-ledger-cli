@@ -1,4 +1,4 @@
-#include "global.h"
+#include "ledger_wrap/global.h"
 
 #include <mutex>
 
@@ -6,6 +6,8 @@
 #include <system.hh>
 #include <scope.h>
 #include <session.h>
+
+extern int main(int argc, char* argv[], char* envp[]);
 
 namespace ledger_wrap
 {
@@ -34,5 +36,10 @@ void init_ledger_globals(ledger::session_t *session)
 
     initialized = true;
 }
-    
+
+int call_main(int argc, char * argv[], char * envp[])
+{
+    return main(argc, argv, envp);
+}
+
 } // namespace ledger_wrap

@@ -123,6 +123,13 @@ $(AAR_PATH): $(BUILD)/.check-submodules $(BUILD)/.docker-image $(LEDGER_SOURCE_D
 	@echo
 	@echo "Output AAR: $@"
 
+## Run android tests
+test: $(BUILD)/.check-submodules $(BUILD)/.docker-image $(LEDGER_SOURCE_DEPS)
+	@echo "Building Ledger..."
+	@docker run --rm -v $(PWD):$(DOCKER_PATH) \
+	     $(DOCKER_IMAGE) \
+	     /bin/bash -c "cd $(DOCKER_PATH) && ./gradlew --no-daemon test"
+
 ## Upload Ledger package to Bintray
 upload: $(AAR_PATH)
 	@echo "Uploading Ledger build..."
@@ -151,7 +158,7 @@ LEDGER_LIBS_SOURCE_DEPS += $(wildcard ledger/ledger_wrap/src/*)
 $(BUILD)/.ledger-libs: $(BUILD)/.docker-image $(LEDGER_LIBS_SOURCE_DEPS)
 	@echo "Building Ledger libraries..."
 	@echo
-	@docker run --rm -v $(PWD):$(DOCKER_PATH) $(DOCKER_IMAGE) \
-	    /bin/bash -c 'cd $(DOCKER_PATH)/ledger/ledger_wrap && ./build.sh --release'
+	@set -x
+	@docker run --rm -v $(PWD):$(DOCKER_PATH) $(DOCKER_IMAGE) /bin/bash -c 'cd $(DOCKER_PATH)/ledger/ledger_wrap && ./build.sh --release'
 	@mkdir -p $(@D)
 	@touch $@

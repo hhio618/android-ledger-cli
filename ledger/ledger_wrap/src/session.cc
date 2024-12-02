@@ -6,7 +6,7 @@
 
 #include <ledger_wrap/journal.h>
 
-#include "global.h"
+#include "ledger_wrap/global.h"
 
 namespace ledger_wrap
 {

@@ -13,6 +13,8 @@ namespace ledger_wrap
 /// This function is idempotent: i.e., it does nothing on second call.
 void init_ledger_globals(ledger::session_t *first_session);
 
+int call_main(int argc, char * argv[], char * envp[]);
+
 } // namespace ledger_wrap
 
 #endif // LEDGER_WRAP_GLOBAL_H
