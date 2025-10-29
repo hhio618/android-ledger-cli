@@ -2,4 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="net.ilammy.ledger.api"
 >
+    <!-- Permission to draw overlays on top of other apps -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    
+    <!-- Permission for screen recording/capture -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    
+    <!-- Permission to access internet for TCP connection -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
+    <!-- Permission to access network state -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <application>
+        <!-- Main activity for requesting permissions -->
+        <activity
+            android:name="net.ilammy.ledger.screenshot.MainActivity"
+            android:label="Screenshot Overlay"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- Overlay service for screenshot capture -->
+        <service
+            android:name="net.ilammy.ledger.screenshot.OverlayService"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
 </manifest>
